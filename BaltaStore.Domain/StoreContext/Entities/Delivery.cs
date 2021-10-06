@@ -1,6 +1,6 @@
 using System;
 
-namespace BaltaStore.Domain.StoreContext
+namespace BaltaStore.Domain.StoreContext.Entities
 {
     public class Delivery
     {
