@@ -10,6 +10,9 @@ namespace BaltaStore.Tests
         public void TestMethod1()
         {
             var c = new Customer("Andre", "Baltieri", "12345678911", "hello@balta.io", "199999999", "Rua dos Desenvolvedores");
+
+            var order = new Order(c);
+
         }
     }
 }

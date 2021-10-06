@@ -31,5 +31,10 @@ namespace BaltaStore.Domain.StoreContext.Entities
 
         public string Address { get; private set; }
 
+        public override string ToString()
+        {
+            return $"{this.FistName} {this.LastName}";
+        }
+
     }
 }
