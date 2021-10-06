@@ -1,3 +1,6 @@
+using BaltaStore.Domain.StoreContext.ValueObjects;
+using System.Collections.Generic;
+
 namespace BaltaStore.Domain.StoreContext.Entities
 {
     public class Customer
@@ -10,30 +13,27 @@ namespace BaltaStore.Domain.StoreContext.Entities
         LID        
         */
 
-        public Customer(string firstName, string lastName, string document, string email, string phone, string address)
+        public Customer(Name name, Document document, Email email, string phone)
         {
-            this.FistName = firstName;
-            this.LastName = lastName;
+            this.Name = name;
             this.Document = document;
             this.Email = email;
             this.Phone = phone;
-            this.Address = address;
+            this.Addresses = new List<Address>();
         }
-        public string FistName { get; private set; }
+        public Name Name { get; private set; }
 
-        public string LastName { get; private set; }
+        public Document Document { get; private set; }
 
-        public string Document { get; private set; }
-
-        public string Email { get; private set; }
+        public Email Email { get; private set; }
 
         public string Phone { get; private set; }
 
-        public string Address { get; private set; }
+        public IReadOnlyCollection<Address> Addresses { get; private set; }
 
         public override string ToString()
         {
-            return $"{this.FistName} {this.LastName}";
+            return this.Name.ToString();
         }
 
     }
