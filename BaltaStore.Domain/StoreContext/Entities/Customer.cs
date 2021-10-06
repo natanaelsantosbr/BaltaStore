@@ -1,10 +1,13 @@
 using BaltaStore.Domain.StoreContext.ValueObjects;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BaltaStore.Domain.StoreContext.Entities
 {
     public class Customer
     {
+        private readonly IList<Address> _addresses;
+
         //Solid
 
         /*
@@ -19,7 +22,7 @@ namespace BaltaStore.Domain.StoreContext.Entities
             this.Document = document;
             this.Email = email;
             this.Phone = phone;
-            this.Addresses = new List<Address>();
+            this._addresses = new List<Address>();
         }
         public Name Name { get; private set; }
 
@@ -29,7 +32,12 @@ namespace BaltaStore.Domain.StoreContext.Entities
 
         public string Phone { get; private set; }
 
-        public IReadOnlyCollection<Address> Addresses { get; private set; }
+        public IReadOnlyCollection<Address> Addresses => this._addresses.ToArray();
+
+        public void AddAddress(Address address)
+        {
+            this._addresses.Add(address);
+        }
 
         public override string ToString()
         {
