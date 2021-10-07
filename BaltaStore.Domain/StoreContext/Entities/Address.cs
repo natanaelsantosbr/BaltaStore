@@ -1,4 +1,5 @@
 ﻿using BaltaStore.Domain.StoreContext.Enums;
+using FluentValidator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BaltaStore.Domain.StoreContext.ValueObjects
 {
-    public class Address
+    public class Address : Notifiable
     {
         public Address(string street, string number, string complement, string district, string city, string state, string country, string zipcode, EAddressType type)
         {

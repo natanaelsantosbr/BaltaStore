@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FluentValidator;
+using FluentValidator.Validation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +8,19 @@ using System.Threading.Tasks;
 
 namespace BaltaStore.Domain.StoreContext.ValueObjects
 {
-    public class Name
+    public class Name : Notifiable
     {
         public Name(string firstName, string lastName)
         {
             this.Firstname = firstName;
             this.LastName = lastName;
+
+            this.AddNotifications(new ValidationContract()
+                .Requires()
+                .HasMinLen(this.Firstname, 3, "FirstName", "O nome deve conter pelo menos 3 caracteres")
+                .HasMaxLen(this.Firstname, 40, "FirstName", "O nome deve conter no maximo 40 caracteres")
+                .HasMinLen(this.LastName, 3, "LastName", "O sobrenome deve conter pelo menos 3 caracteres")
+                .HasMaxLen(this.LastName, 40, "LastName", "O sobrenome deve conter no maximo 40 caracteres"));
         }
 
         public string Firstname { get; private set; }

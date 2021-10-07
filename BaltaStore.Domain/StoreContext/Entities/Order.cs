@@ -1,11 +1,12 @@
 using BaltaStore.Domain.StoreContext.Enums;
+using FluentValidator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BaltaStore.Domain.StoreContext.Entities
 {
-    public class Order
+    public class Order : Notifiable
     {
         private readonly IList<OrderItem> _items;
         private readonly IList<Delivery> _deliveries;
@@ -25,17 +26,24 @@ namespace BaltaStore.Domain.StoreContext.Entities
         public EOrderStatus Status { get; private set; }
         public IReadOnlyCollection<OrderItem> Items => this._items.ToArray();
         public IReadOnlyCollection<Delivery> Deliveries => this._deliveries.ToArray();
-
-        public void AddItem(OrderItem item)
+        
+        public void AddItem(Product product, decimal quatity)
         {
-            this._items.Add(item);
+            if (quatity > product.QuantityOnHand)
+                this.AddNotification("OrderItem", $"Produto {product.Title} nao tem {quatity} em estoque");
 
+            var item = new OrderItem(product, quatity);
+
+            this._items.Add(item);
         }
 
         // Criar um pedido
         public void Place()
         {
             this.Number = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 8).ToUpper();
+            
+            if (this._items.Count == 0)
+                AddNotification("Order", "Este pedido nao possui itens");
         }
 
         // Pagar um pedido
