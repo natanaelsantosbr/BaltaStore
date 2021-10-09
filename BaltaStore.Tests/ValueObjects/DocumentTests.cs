@@ -5,12 +5,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace BaltaStore.Tests.ValueObjects
 {
     [TestClass]
-    public class DocumentTests
+    public class OrderTests
     {
         private Document _validDocument;
         private Document _invalidDocument;
 
-        public DocumentTests()
+        public OrderTests()
         {
             this._invalidDocument = new Document("11132112395");
             this._validDocument = new Document("03753828106");
