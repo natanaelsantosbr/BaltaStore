@@ -1,14 +1,10 @@
-﻿using FluentValidator;
+﻿using BaltaStore.Shared.Commands;
+using FluentValidator;
 using FluentValidator.Validation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BaltaStore.Domain.StoreContext.Commands.CustomerCommands.Inputs
 {
-    public class CreateCustomerCommand : Notifiable
+    public class CreateCustomerCommand : Notifiable, ICommand
     {
         //Fail Fast Validation (Validação Que Falha rapida)
 
@@ -30,11 +26,13 @@ namespace BaltaStore.Domain.StoreContext.Commands.CustomerCommands.Inputs
                 .HasMinLen(this.LastName, 3, "LastName", "O sobrenome deve conter pelo menos 3 caracteres")
                 .HasMaxLen(this.LastName, 40, "LastName", "O sobrenome deve conter no maximo 40 caracteres")
                 .IsEmail(this.Email, "Email", "O E-mail é invalido")
-                .HasLen(this.Document, 11,"document", "CPF Invalido")
+                .HasLen(this.Document, 11, "document", "CPF Invalido")
                 );
 
             return Valid();
         }
+
+
 
         //Se o usuario existe no banco (Email)
 
