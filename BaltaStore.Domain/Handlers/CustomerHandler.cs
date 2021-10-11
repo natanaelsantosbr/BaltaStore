@@ -39,8 +39,7 @@ namespace BaltaStore.Domain.Handlers
             //Enviar um E-mail de boas vindas
 
             //Retornar o resultado para a tela
-            return new CreateCustomerCommandResult(Guid.NewGuid(), customer.Name.ToString(), customer.Document.ToString(), customer.Email.ToString());
-
+            return new CreateCustomerCommandResult(Guid.NewGuid(), name.ToString(), document.ToString(), email.Address);
         }
 
         public ICommandResult Handle(AddAddressCommand command)
