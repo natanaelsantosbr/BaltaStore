@@ -13,7 +13,7 @@ namespace BaltaStore.Tests.ValueObjects
         public OrderTests()
         {
             this._invalidDocument = new Document("11132112395");
-            this._validDocument = new Document("03753828106");
+            this._validDocument = new Document("70939619083");
         }
 
         [TestMethod]
