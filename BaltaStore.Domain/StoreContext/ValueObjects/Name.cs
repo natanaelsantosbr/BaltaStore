@@ -12,23 +12,23 @@ namespace BaltaStore.Domain.StoreContext.ValueObjects
     {
         public Name(string firstName, string lastName)
         {
-            this.Firstname = firstName;
+            this.FirstName = firstName;
             this.LastName = lastName;
 
             this.AddNotifications(new ValidationContract()
                 .Requires()
-                .HasMinLen(this.Firstname, 3, "FirstName", "O nome deve conter pelo menos 3 caracteres")
-                .HasMaxLen(this.Firstname, 40, "FirstName", "O nome deve conter no maximo 40 caracteres")
+                .HasMinLen(this.FirstName, 3, "FirstName", "O nome deve conter pelo menos 3 caracteres")
+                .HasMaxLen(this.FirstName, 40, "FirstName", "O nome deve conter no maximo 40 caracteres")
                 .HasMinLen(this.LastName, 3, "LastName", "O sobrenome deve conter pelo menos 3 caracteres")
                 .HasMaxLen(this.LastName, 40, "LastName", "O sobrenome deve conter no maximo 40 caracteres"));
         }
 
-        public string Firstname { get; private set; }
+        public string FirstName { get; private set; }
         public string LastName { get; }
 
         public override string ToString()
         {
-            return $"{this.Firstname} {this.LastName}";
+            return $"{this.FirstName} {this.LastName}";
         }
     }
 }
