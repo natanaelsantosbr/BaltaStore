@@ -129,5 +129,20 @@ namespace BaltaStore.Tests.Entities
                 Assert.AreEqual(EDeliveryStatus.Canceled, x.Status);
             }            
         }
+
+        public void CreateCustomer()
+        {
+            //Verifica se o CPF ja existe
+            //Verifica se o E-mail ja existe
+            //Criar os VOs
+            //Criar a entidades
+            //Validar as entidades e VO
+            // Inserir o cliente no banco
+            // Envia o convite do Slack
+            // Envia um e-mail de boas vindas
+
+        }
+
+
     }
 }
