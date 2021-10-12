@@ -1,4 +1,6 @@
 ﻿using BaltaStore.Domain.StoreContext.Enums;
+using BaltaStore.Shared.Commands;
+using FluentValidator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BaltaStore.Domain.StoreContext.Commands.CustomerCommands.Inputs
 {
-    public class AddAddressCommand
+    public class AddAddressCommand : Notifiable, ICommand
     {
         public Guid Id { get; set; }
         public string Street { get;  set; }
@@ -19,5 +21,17 @@ namespace BaltaStore.Domain.StoreContext.Commands.CustomerCommands.Inputs
         public string Country { get;  set; }
         public string ZipCode { get;  set; }
         public EAddressType Type { get;  set; }
+
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Execute(object parameter)
+        {
+            return base.IsValid;
+        }
     }
 }
