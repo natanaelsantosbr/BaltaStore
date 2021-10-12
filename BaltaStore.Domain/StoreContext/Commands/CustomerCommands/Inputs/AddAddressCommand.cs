@@ -1,11 +1,8 @@
-﻿using BaltaStore.Domain.StoreContext.Enums;
+﻿
+using BaltaStore.Domain.StoreContext.Enums;
 using BaltaStore.Shared.Commands;
 using FluentValidator;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BaltaStore.Domain.StoreContext.Commands.CustomerCommands.Inputs
 {
@@ -22,14 +19,7 @@ namespace BaltaStore.Domain.StoreContext.Commands.CustomerCommands.Inputs
         public string ZipCode { get;  set; }
         public EAddressType Type { get;  set; }
 
-        public event EventHandler CanExecuteChanged;
-
-        public bool CanExecute(object parameter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Execute(object parameter)
+        public bool Valid()
         {
             return base.IsValid;
         }
