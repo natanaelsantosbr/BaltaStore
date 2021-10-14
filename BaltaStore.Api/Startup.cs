@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using BaltaStore.Domain.Handlers;
@@ -8,9 +9,11 @@ using BaltaStore.Domain.StoreContext.Services;
 using BaltaStore.Infra.StoreContext.DataContext;
 using BaltaStore.Infra.StoreContext.Repositories;
 using BaltaStore.Infra.StoreContext.Services;
+using BaltaStore.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -19,8 +22,18 @@ namespace BaltaStore.Api
 {
     public class Startup
     {
+        public static IConfiguration Configuration { get; set; }
+
         public void ConfigureServices(IServiceCollection services)
         {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+
+            Configuration = builder.Build();
+
+            services.AddApplicationInsightsTelemetry(Configuration);
+
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddResponseCompression();
 
@@ -39,6 +52,8 @@ namespace BaltaStore.Api
                 o.ApiKey = "7e0d52eebce64d579863bb30c04ad89b";
                 o.LogId = new Guid("791aea95-2c28-4a14-accd-0d21a7fe689b");
             });
+
+            Settings.ConnectionString = $"{Configuration["connectionStrings"]}";
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -10,9 +10,9 @@ namespace BaltaStore.Api.Controllers
     {
         [HttpGet]
         [Route("")]
-        public IActionResult Index()
+        public string Index()
         {
-            throw new Exception("We're done when I say we're done");
+            return "Hello";
         }
     }
 }
