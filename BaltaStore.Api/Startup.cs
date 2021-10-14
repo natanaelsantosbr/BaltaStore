@@ -33,12 +33,19 @@ namespace BaltaStore.Api
             {
                 x.SwaggerDoc("v1", new OpenApiInfo { Title = "Balta Store", Version = "v1" });
             });
+
+            services.AddElmahIo(o =>
+            {
+                o.ApiKey = "7e0d52eebce64d579863bb30c04ad89b";
+                o.LogId = new Guid("791aea95-2c28-4a14-accd-0d21a7fe689b");
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
+
 
             app.UseMvc();
             app.UseResponseCompression();
@@ -48,6 +55,8 @@ namespace BaltaStore.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
+            app.UseElmahIo();
         }
     }
 }
