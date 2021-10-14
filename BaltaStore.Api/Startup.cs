@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace BaltaStore.Api
 {
@@ -27,6 +28,11 @@ namespace BaltaStore.Api
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<CustomerHandler, CustomerHandler>();
+
+            services.AddSwaggerGen(x =>
+            {
+                x.SwaggerDoc("v1", new OpenApiInfo { Title = "Balta Store", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -36,6 +42,12 @@ namespace BaltaStore.Api
 
             app.UseMvc();
             app.UseResponseCompression();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
         }
     }
 }
