@@ -27,7 +27,7 @@ namespace BaltaStore.Api.Controllers
 
         [HttpGet]
         [Route("v1/customers")]
-        [ResponseCache(Duration = 60)]
+        [ResponseCache(Duration = 15)]
         public IEnumerable<ListCustomerQueryResult> Get()
         {
             return this._repository.Get();
@@ -56,33 +56,10 @@ namespace BaltaStore.Api.Controllers
 
         [HttpPost]
         [Route("v1/customers")]
-        public object Post([FromBody] CreateCustomerCommand command)
+        public ICommandResult Post([FromBody] CreateCustomerCommand command)
         {
             var result = (CreateCustomerCommandResult)this._handler.Handle(command);
-
-            if (_handler.IsValid)
-                return BadRequest(_handler.Notifications);
-
             return result;
-        }
-
-        [HttpPut]
-        [Route("v1/customers/{id}")]
-        public Customer Put([FromBody] CreateCustomerCommand command)
-        {
-            var name = new Name(command.FirstName, command.LastName);
-            var document = new Document(command.Document);
-            var email = new Email(command.Email);
-            var customer = new Customer(name, document, email, command.Phone);
-
-            return customer;
-        }
-
-        [HttpDelete]
-        [Route("v1/customers/{id}")]
-        public object Delete()
-        {
-            return new { message = "Cliente removido com sucesso!" };
         }
     }
 }
