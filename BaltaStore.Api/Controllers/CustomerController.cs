@@ -1,4 +1,6 @@
-﻿using BaltaStore.Domain.StoreContext.Entities;
+﻿using BaltaStore.Domain.StoreContext.Commands.CustomerCommands.Inputs;
+using BaltaStore.Domain.StoreContext.Entities;
+using BaltaStore.Domain.StoreContext.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,45 +15,82 @@ namespace BaltaStore.Api.Controllers
         [Route("customers")]
         public List<Customer> Get()
         {
-            return null;
+            var name = new Name("Andre", "Baltieri");
+            var document = new Document("46718115533");
+            var email = new Email("hello@balta.io");
+            var customer = new Customer(name, document, email, "551154564");
+
+            var customers = new List<Customer>
+            {
+                customer
+            };
+
+            return customers;
         }
 
         [HttpGet]
         [Route("customers/{id}")]
         public Customer GetById(Guid id)
         {
-            return null;
+            var name = new Name("Andre", "Baltieri");
+            var document = new Document("46718115533");
+            var email = new Email("hello@balta.io");
+            var customer = new Customer(name, document, email, "551154564");
+
+            return customer;
         }
 
         [HttpGet]
         [Route("customers/{id}/orders")]
-        public List<Customer> GetByOrders(Guid id)
+        public List<Order> GetByOrders(Guid id)
         {
-            return null;
+            var name = new Name("Andre", "Baltieri");
+            var document = new Document("46718115533");
+            var email = new Email("hello@balta.io");
+            var customer = new Customer(name, document, email, "551154564");
+            var order = new Order(customer);
+
+            var mouse = new Product("_mouse", "_mouse", "_mouse.jpg", 120M, 10);
+            var monitor = new Product("_monitor", "_monitor", "_monitor.jpg", 1011M, 10);
+
+            order.AddItem(mouse, 5);
+            order.AddItem(monitor, 5);
+
+            var orders = new List<Order>();
+            orders.Add(order);
+
+            return orders;
         }
 
         [HttpPost]
         [Route("customers")]
-        public Customer Post([FromBody]Customer customer)
+        public Customer Post([FromBody] CreateCustomerCommand command)
         {
-            return null;
+            var name = new Name(command.FirstName, command.LastName);
+            var document = new Document(command.Document);
+            var email = new Email(command.Email);
+            var customer = new Customer(name, document, email, command.Phone);
+
+            return customer;
         }
 
         [HttpPut]
         [Route("customers/{id}")]
-        public Customer Put([FromBody]Customer customer)
+        public Customer Put([FromBody] CreateCustomerCommand command)
         {
-            return null;
+            var name = new Name(command.FirstName, command.LastName);
+            var document = new Document(command.Document);
+            var email = new Email(command.Email);
+            var customer = new Customer(name, document, email, command.Phone);
+
+            return customer;
         }
 
         [HttpDelete]
-        [Route("customer/{id}")]
-        public string Delete()
+        [Route("customers/{id}")]
+        public object Delete()
         {
-            return null;
+            return new { message = "Cliente removido com sucesso!" };
         }
-
-
-
     }
 }

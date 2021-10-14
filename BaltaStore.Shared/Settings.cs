@@ -8,6 +8,6 @@ namespace BaltaStore.Shared
 {
     public static class Settings
     {
-        public static string ConnectionString = "Server=(localdb)\mssqllocaldb;Database=evolucao;Trusted_Connection=True;MultipleActiveResultSets=true;";
+        public static string ConnectionString = @"Server=(localdb)\mssqllocaldb;Database=evolucao;Trusted_Connection=True;MultipleActiveResultSets=true;";
     }
 }
